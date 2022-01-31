@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--Author: Sam Tracey-->
+<!--Creating simple tables in HTML-->
+<html>
+<head>Playing With Tables</head>
+
+<body>
+    <table border="2"
+            width="400"
+            cellpadding="10"
+            cellspacing=10
+            bgcolor="#efefef">          <!--Create a border & shading for our table-->    
+        <tr>
+            <th></th>                   <!--First row of table (blank cell)-->
+            <th>Mon</th>                <!--Start listing table headers (th)-->
+            <th>Tues</th>
+            <th bgcolor="#cccccc">Wed</th>
+        </tr>
+        <tr>                            <!--Second row of table-->
+            <th>9.00am</th>             <!--Single table header for row-->
+            <td rowspan="2">Maths</td>  <!--First table data entry spanning two rows-->
+            <td colspan="2">Java</td>   <!-- We create a cell which spans two columns-->
+        </tr>
+            <th>10.00am</th>
+            <td>Networks</td>
+            <td>C-Arch</td>
+
+
+    </table>
+
+
+
+</body>
+
+</html>
