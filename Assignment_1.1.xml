@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Books>
+    <book category="Technical_Books"> 
+
+    	<ISBN>1234567890</ISBN>
+    	<Title>Introduction to Algorithms</Title>
+    	<Author>Thomas Cormen</Author> 
+
+    	<ISBN>987654321</ISBN>
+    	<Title>The Art of Computer Programming</Title>
+    	<Author>Donald Knuth</Author>
+
+    </book>
+
+    <book category ="Cookery_Books">
+
+    	<ISBN>0241431107</ISBN>
+    	<Title>Mary Berry's Simple Comforts</Title>
+    	<Author>Mar Berry</Author>
+
+    	<ISBN>100002002A</ISBN>
+    	<Title>One: Simple One-Pan Wonders</Title>
+    	<Author>Jamie Oliver</Author>
+
+    </book>
+</Books>
