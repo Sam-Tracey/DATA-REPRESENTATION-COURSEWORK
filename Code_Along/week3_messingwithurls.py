@@ -7,6 +7,6 @@ Task:       Code along Week 3 - Playing around with URLs
 '''
 
 import requests
-url = 'https://atu.ie'
+url = 'https://www.githup.com'
 response = requests.get(url)
 print(response.status_code)
