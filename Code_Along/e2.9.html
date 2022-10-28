@@ -1,0 +1,45 @@
+<!--Write code so when a user clicks on the button in a row, the contents of the cells in that row are stored in an object and output to the console-->
+
+<html>
+    <head>
+        <title>Week 6 Exercise 2.9</title>
+    </head>
+    <body>
+        <table id = "myTable">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>Sam</td>
+                <td>Tracey</td>
+                <td>25</td>
+                <td><button onclick = "doRow(this)">Go</button></td>
+            </tr>
+            <tr>
+                <td>Andrew</td>
+                <td>Beatty</td>
+                <td>30</td>
+                <td><button onclick = "doRow(this)">Go</button></td>
+            </tr>
+            <tr>
+                <td>John</td>
+                <td>Doe</td>
+                <td>35</td>
+                <td><button onclick = "doRow(this)">Go</button></td>
+            </tr>
+        </table>
+        <script>
+            function doRow(button){
+                var data = {}
+                var row = button.parentNode.parentNode
+                data.firstName = row.cells[0].innerHTML
+                data.lastName = row.cells[1].innerHTML
+                data.age = row.cells[2].innerHTML
+                console.log("row data" + JSON.stringify(data))
+            }
+        </script>
+    </body>
+</html>

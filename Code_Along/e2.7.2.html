@@ -1,0 +1,24 @@
+<!--Make a web page that outputs all the values of an array of words-->
+
+<html>
+    <head>
+        <title>Week 6 Exercise 7</title>
+    </head>
+    <body>
+        <div id = "output">
+            output here
+        </div>
+
+
+        <script>
+            var words = ["hello", "world", "this", "is", "a", "test"];
+            var output = "";
+            for (var i = 0; i < words.length; i++) {
+                output += words[i] + "<br>";
+            }
+            document.getElementById("output").innerHTML = output;
+        </script>
+    </body>
+
+
+</html>

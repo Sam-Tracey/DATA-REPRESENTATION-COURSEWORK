@@ -1,0 +1,26 @@
+<!-- Make a web page that has a text box, when the content of the text area changes, 
+the page will display whether the value entered is greater than 10, less than 10 or equal to 10-->
+
+<html>
+    <head>
+        <title>Week 6 Exercise 6</title>
+    </head>
+    <body>
+        <input type="number" id="input" oninput="checkValue()">
+        <br>
+        <p id="output"></p>
+        <script>
+            function checkValue() {
+                var value = document.getElementById("input").value;
+                if (value > 10) {
+                    document.getElementById("output").innerHTML = "Greater than 10";
+                } else if (value < 10) {
+                    document.getElementById("output").innerHTML = "Less than 10";
+                } else {
+                    document.getElementById("output").innerHTML = "Equal to 10";
+                }
+            }
+        </script>
+    </body>
+
+</html>

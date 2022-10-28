@@ -1,0 +1,32 @@
+<!--Make a webpage that has 2 <div> only one <div> should be visible at a time. Each <div> will have a button that will make the other <div> visible and hide itself-->
+
+
+<html>
+    <head>
+        <title>Week 6 Exercise 5</title>
+    </head>
+    <body>
+        <div id="div1" style = "background-color: goldenrod;">
+            <br>
+            Div 1 <br>
+            <button onclick="showDiv2()">Show Div 2</button>
+        </div>
+
+        <div id="div2" style = "background-color: red; display: none">
+            <br>
+            Div 2 <br>
+            <button onclick="showDiv1()">Show Div 1</button>
+        </div>
+
+        <script>
+            function showDiv2() {
+                document.getElementById("div1").style.display = "none";
+                document.getElementById("div2").style.display = "block";
+            }
+            function showDiv1() {
+                document.getElementById("div2").style.display = "none";
+                document.getElementById("div1").style.display = "block";
+            }
+        </script>
+    </body>
+</html>

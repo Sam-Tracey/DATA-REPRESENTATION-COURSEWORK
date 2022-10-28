@@ -1,0 +1,27 @@
+<!-- Create a web page with multiple inputs and a button. When the user clicks the button, 
+read all the inputs, store the values into aa class and output the class to the console-->
+
+<html>
+    <head>
+        <title>Week 6Exercise 2.8</title>
+    </head>
+    <body>
+        <div id = "myForm">
+            First name: <input type = "text" name = "firstName"/><br>
+            Last name: <input type = "text" name = "lastName"/><br>
+            Age: <input type = "text" name = "age"/><br>
+            <button onclick = "doForm()">Go</button>
+        </div>
+
+        <script>
+            function doForm(){
+                var employee = {}
+                var form = document.getElementById("myForm")
+                employee.firstName = form.querySelector('input[name="firstName"]').value
+                employee.lastName = form.querySelector('input[name="lastName"]').value
+                employee.age = form.querySelector('input[name="age"]').value
+                console.log("form data" + JSON.stringify(employee))
+            }
+        </script>
+    </body>
+</html>

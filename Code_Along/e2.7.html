@@ -1,0 +1,23 @@
+<!--Make a web page that outputs 1 to N-->
+
+<html>
+    <head>
+        <title>Week 6 Exercise 7</title>
+    </head>
+    <body>
+        <input type="number" id="input" oninput="checkValue()">
+        <br>
+        <p id="output"></p>
+        <script>
+            function checkValue() {
+                var value = document.getElementById("input").value;
+                var output = "";
+                for (var i = 1; i <= value; i++) {
+                    output += i + "<br>";
+                }
+                document.getElementById("output").innerHTML = output;
+            }
+        </script>
+    </body>
+
+</html>
