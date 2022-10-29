@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Test Create</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    </head>
+
+
+    <body>
+        <script>
+            function createBook(book, callback){
+                $.ajax({
+                    "url": "http://andrewbeatty1.pythonanywhere.com/books",
+                    "method": "POST",
+                    "data": JSON.stringify(book),
+                    "dataType": "JSON",
+                    contentType: "application/json",
+                    success: function(result){
+                        //console.log(result);
+                        callback(result);
+                    },
+                    error: function(xhr, status, error){
+                        console.log("Error: "+status+" msg: " + error);
+                    }
+
+                });
+            }
+            function processCreateResponse(result){
+                console.log(result);
+            }
+            book = {
+                "Title": "Harry Potter does something weird",
+                "Author": "JK Rowling",
+                "Price": 12
+            }
+            createBook(book, processCreateResponse);
+        </script>
+    </body>
+</html>

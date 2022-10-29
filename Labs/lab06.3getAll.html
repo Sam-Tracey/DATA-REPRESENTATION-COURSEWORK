@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>Test Get All</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    </head>
+
+
+    <body>
+        <script>
+            function getALL(callback){
+                $.ajax({
+                    "url": "http://andrewbeatty1.pythonanywhere.com/books",
+                    "type": "GET",
+                    "data": "",
+                    "dataType": "JSON",
+                    "success": function(result){
+                        //console.log(results);
+                        callback(result)
+                    },
+                    "error": function(xhr, status, error){
+                        console.log("error: "+status+" msg: "+error);
+                    }
+                });
+            }
+            function processGetAll(result){
+                console.log(result);
+            }
+            getALL(processGetAll);
+        </script>
+    </body>
+</html>

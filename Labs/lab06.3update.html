@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>Test Update</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    </head>
+
+
+    <body>
+        <script>
+            function updateBook(book, callback){
+                $.ajax({
+                    "url": "http://andrewbeatty1.pythonanywhere.com/books/"+encodeURI(book.id),
+                    "method": "PUT",
+                    "data": JSON.stringify(book),
+                    "dataType": "JSON",
+                    contentType: "application/json; charset=utf-8",
+                    success: function(result){
+                        //console.log(result);
+                        callback(result);
+                    },
+                    error: function(xhr, status, error){
+                        console.log("Error: "+status+" msg: " + error);
+                    }
+                });
+            }
+            function processUpdateResponse(result){
+                console.log(result);
+            }
+            book = {id:173, "Price":9999}
+            updateBook(book, processUpdateResponse);
+        </script>
+    </body>
+</html>
