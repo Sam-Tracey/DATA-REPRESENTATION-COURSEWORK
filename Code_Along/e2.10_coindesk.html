@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <!--Need this code to import AJAX library-->
+        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <title>Read a Simple JSON</title>
+    </head>
+    <body>
+        <button onclick="readJSON()">Read BTC Price</button>
+    
+        <div id = "output"></div>
+    </body>
+    <script>
+        function readJSON(){
+            $.ajax({
+                "url": "https://api.coindesk.com/v1/bpi/currentprice.json",
+                "method": "GET",
+                "data":"",
+                "dataType": "JSON",
+                "success": function(result){
+                    // The line below extracts the entire json object
+                    //console.log(result);
+                    // If you want only one property, you can use dot notation
+                    var rate = result.bpi.USD.rate;
+                    //console.log(rate);
+                    // Output the rate to the html page instead of the console.
+                    document.getElementById("output").innerText = rate;
+                },
+                "error": function(xhr, status, error){
+                    console.log("error: "+status+" msg: "+error);
+                }
+            });
+        }
+    </script>
+
+</html>
