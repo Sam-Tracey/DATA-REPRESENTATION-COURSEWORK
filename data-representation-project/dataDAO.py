@@ -113,7 +113,7 @@ class DataDAO:
             r['date'] = r['date'].strftime("%Y-%m-%d")
         cursor.close()
         return result
-        
+
 
     def readMFGEMP(self):
         db = self.getConnection()
@@ -250,12 +250,35 @@ class DataDAO:
     # Functions for CRUD operations on user data.
     
     
+    def login(self, username, password):
+        db = self.getConnection()
+        cursor = db.cursor(dictionary=True)
+        sql="select * from users where username = %s and password = %s"
+        values = [username, password]
+        cursor.execute(sql, values)
+        result = cursor.fetchone()
+        cursor.close()
+        return result
+    
+    
+    
+    
     def getAllUsers(self):
         db = self.getConnection()
         cursor = db.cursor(dictionary=True)
         sql="select * from users"
         cursor.execute(sql)
         result = cursor.fetchall()
+        cursor.close()
+        return result
+
+    def findUserByID(self, id):
+        db = self.getConnection()
+        cursor = db.cursor(dictionary=True)
+        sql="select * from users where id = %s"
+        values = [id]
+        cursor.execute(sql, values)
+        result = cursor.fetchone()
         cursor.close()
         return result
     
