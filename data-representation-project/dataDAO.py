@@ -206,7 +206,7 @@ class DataDAO:
         cursor.close()
         return
 
-    def insertQuitsByID(self, date, num_quit):
+    def createQuitsByID(self, date, num_quit):
         db = self.getConnection()
         cursor = db.cursor(dictionary=True)
         sql="insert into localattritionrate (date, num_quit) values (%s, %s)"

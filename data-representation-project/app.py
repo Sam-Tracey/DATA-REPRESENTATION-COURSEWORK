@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import json
 import pandas as pd
 import plotly
@@ -47,6 +47,65 @@ def employee():
     if not 'username' in session:
         return redirect(url_for('login'))
     return render_template('employee.html')
+
+
+@app.route('/employee')
+def getAll():
+    if not 'username' in session:
+        return redirect(url_for('login'))
+    results = dataDAO.readQuits()
+
+    return jsonify(results)
+
+@app.route('/employee/<int:id>')
+def findById(id):
+    if not 'username' in session:
+        return redirect(url_for('login'))
+    results = dataDAO.findQuitsByID(id)
+    return jsonify(results)
+
+@app.route('/employee', methods=['POST'])
+def create():
+    if not 'username' in session:
+        return redirect(url_for('login'))
+    # Expecting form data
+    employee = {
+        "date": request.form['date'],
+        "quits": request.form['num_quit']
+    }
+    values = (employee['date'], employee['num_quit'])
+    newId = dataDAO.createQuitsByID(values)
+    employee['id'] = newId
+    return jsonify(employee)
+
+@app.route('/employee/<int:id>', methods=['PUT'])
+def update(id):
+    if not 'username' in session:
+        return redirect(url_for('login'))
+    foundEmployee = dataDAO.findQuitsByID(id)
+    if not foundEmployee:
+        return jsonify({}), 404
+    if not request.json:
+        return jsonify({}), 400
+    reqJson = request.json
+    if 'date' in reqJson:
+        foundEmployee['date'] = reqJson['date']
+    if 'num_quit' in reqJson:
+        foundEmployee['num_quit'] = reqJson['num_quit']
+    values = (foundEmployee['date'], foundEmployee['num_quit'], foundEmployee['id'])
+    dataDAO.updateQuitsByID(values)
+    return jsonify(foundEmployee)
+
+@app.route('/employee/<int:id>', methods=['DELETE'])
+def delete(id):
+    if not 'username' in session:
+        return redirect(url_for('login'))
+    dataDAO.deleteQuitsByID(id)
+    return jsonify({"done": True})
+
+
+
+# routes for generating visualizations #
 
 @app.route('/dash1')
 def dash1():
@@ -178,6 +237,7 @@ def dash4():
     return render_template('dash4.html', graphJSON=graphJSON, header=header, graphJSON1=graphJSON1)
 
 
-
+if __name__ == '__main__' :
+    app.run(debug= True)
 
 

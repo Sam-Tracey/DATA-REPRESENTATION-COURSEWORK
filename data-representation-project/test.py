@@ -1,10 +1,10 @@
 from dataDAO import dataDAO
 import pandas as pd
-dataDAO.loadMFGEMP()
-dataDAO.loadOpenings()
-dataDAO.loadQuits()
-dataDAO.loadUnemployment()
-dataDAO.loadLocalQuits()
+#dataDAO.loadMFGEMP()
+#dataDAO.loadOpenings()
+#dataDAO.loadQuits()
+#dataDAO.loadUnemployment()
+#dataDAO.loadLocalQuits()
 
 #dataDAO.updateQuitsByID(1, '2010-01-01', 6)
 
@@ -21,7 +21,7 @@ dataDAO.loadLocalQuits()
 
 #dataDAO.deleteQuitsByDate('2022-12-01')
 
-#dataDAO.insertUser('Sam', 'Sam', 'stracey@somehwere.com')
+dataDAO.insertUser('Sam', 'Sam', 'stracey@somehwere.com')
 
 #dataDAO.updateUserByID(1, 'ST', 'Foobar1', '1234')
 
