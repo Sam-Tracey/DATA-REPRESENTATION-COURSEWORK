@@ -1,4 +1,5 @@
 from dataDAO import dataDAO
+import pandas as pd
 '''dataDAO.loadMFGEMP()
 dataDAO.loadOpenings()
 dataDAO.loadQuits()
@@ -22,10 +23,17 @@ print(foo)'''
 
 #dataDAO.deleteQuitsByDate('2022-12-01')
 
-#dataDAO.insertUser('ST', 'Foobar', 'stracey@somehwere.com')
+#dataDAO.insertUser('Sam', 'Sam', 'stracey@somehwere.com')
 
 #dataDAO.updateUserByID(1, 'ST', 'Foobar1', '1234')
 
-#dataDAO.deleteUserByID(1)
+#dataDAO.deleteUserByID(2)
 
 #print(dataDAO.readUnemployment())
+
+#data = dataDAO.readQuits()
+# convert to dataframe
+#df = pd.DataFrame(data)
+#print(df)
+
+dataDAO.loadLocalQuits()

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<head>
+<!--Font reference-->
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:300">
+<!--Style sheet link-->
+<link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
+<!--Social media icons link-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+ integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" 
+ crossorigin="anonymous" referrerpolicy="no-referrer" />
+<meta charset="UTF-8">
+<title>Dashboard 2</title>
+
+</head>
+
+<body>
+    <header>
+        <!-- Main Menu Section -->
+        <div class="menu">
+
+            <img src="/static/images\logo.png" alt="logo" class="logo">
+
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="{{ url_for('employee') }}">Employee Data</a></li>
+                    <li><a href="{{ url_for('dash1') }}">Dashboard 1</a></li>
+                    <li><a href="{{ url_for('dash2') }}">Dashboard 2</a></li>
+                    <li><a href="{{ url_for('dash3') }}">Dashboard 3</a></li>
+                    
+
+
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+    <!-- Upper Banner Section -->
+    <div class="banner">
+        <div class="container">
+            <h1>Dashboard 2</h1>
+            <p>Sam Tracey</p>
+            <p>G00398245</p>
+
+
+        </div>
+    </div>
+    <!--Flex container for content in left hand pane-->
+    <div class="flex-container">
+        <div class ="main-content">
+            <iframe width="100%" height="601" frameborder="0"
+            src="https://observablehq.com/embed/@sam-tracey/bar-chart-2?cells=chart%2Cviewof+size%2Cviewof+c1%2Cviewof+speed"></iframe>
+        </div>
+
+
+        <!--Container for right hand pane-->
+        <div class="sidebar">
+            <h2>D3.js in Observable</h2>
+            <p>One way to overcome the requirement to have a Python web server running in order to see the output from a .csv file in D3.js is to use Obesrvable.
+            </p>
+            <p>Observable's workflow is very similar to a Python Jupyter Notebook in that you can enter your D3.js code in cells and run each cell separately.
+                Observable notebooks can also be "forked" and "starred" in the same way that you might use Github so it has a very familiar feeling to it.
+            </p>
+            <p>One huge advantage of deploying your D3.js code in Observable is that, once you publish it on their website you can then create an iFrame link to your notebook
+                which can be embedded in a standard HTML page! Even if you have used a .csv file (like I have in the example in the left hand pane) you do not need to run
+                a Python web server to view it!
+            </p>
+
+            <p>To view the code used to produce this chart in Observable you can click on the link below:</p><br>
+            <a href="https://observablehq.com/@sam-tracey/web-apps-observable" target="_blank">Sam Tracey - Observable Notebook</a> 
+         </div>
+ 
+ 
+    </div>
+    <!-- Foot section including social media buttons / links -->
+    <footer class="footer">
+        
+            
+        <ul>
+            <li class="social-items"><a href="https://github.com/Sam-Tracey" target="_blank"><i class="fa-brands fa-github"></i></i></a></li>
+            <li class="social-items"><a href="https://www.linkedin.com/in/sam-tracey-327044188/" target="_blank"><i class="fa-brands fa-linkedin"></i></a></li>
+            <li class="social-items"><a href="https://twitter.com/Sam_Tracey76" target="_blank"><i class="fa-brands fa-twitter"></i></a></li>
+        </ul> 
+     
+ 
+ 
+    </footer>
+
+</body>
+</html>

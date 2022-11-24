@@ -253,7 +253,7 @@ class DataDAO:
     def login(self, username, password):
         db = self.getConnection()
         cursor = db.cursor(dictionary=True)
-        sql="select * from users where username = %s and password = %s"
+        sql="select * from user where username = %s and password = %s"
         values = [username, password]
         cursor.execute(sql, values)
         result = cursor.fetchone()

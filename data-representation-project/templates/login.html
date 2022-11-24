@@ -1,25 +1,52 @@
-<html>
-  <head>
-    <title>Flask Intro - login page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
-  </head>
-  <body>
-    <div class="container">
-      <h1>Please login</h1>
-      <br>
-      <form action="" method="post">
-        <input type="text" placeholder="Username" name="username" value="{{
-          request.form.username }}">
-         <input type="password" placeholder="Password" name="password" value="{{
-          request.form.password }}">
-        <input class="btn btn-default" type="submit" value="Login">
-      </form>
-      {% if error %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <title>Login Form</title>
+      <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/login_styles.css') }}" >
+   </head>
+   <body>
+      <div class="wrapper">
+         <div class="title">
+            Login Form
+         </div>
+         <form action="{{ url_for('login') }}" method="POST">
+            <div class="field">
+               <input type="text" name="username" required value="{{
+                request.form.username}}">
+               <label>Email Address</label>
+            </div>
+            <div class="field">
+               <input type="password" name="password" required value="{{
+                request.form.password}}">
+               <label>Password</label>
+            </div>
+            <div class="content">
+               <div class="checkbox">
+                  <input type="checkbox" id="remember-me">
+                  <label for="remember-me">Remember me</label>
+               </div>
+               <div class="pass-link">
+                  <a href="#">Forgot password?</a>
+               </div>
+            </div>
+            <div class="field">
+               <input type="submit" value="Login">
+            </div>
+            <div class="signup-link">
+               Not a member? <a href="#">Signup now</a>
+            </div>
+         </form>
+        {% if error %}
         <p class="error"><strong>Error:</strong> {{ error }}
-      {% endif %}
-    </div>
-  </body>
+          <script>
+            function autoRefresh() {
+                window.location = window.location.href;
+            }
+            setInterval('autoRefresh()', 2000);
+        </script>
+        {% endif %}
+      </div>
+   </body>
 </html>
-
 

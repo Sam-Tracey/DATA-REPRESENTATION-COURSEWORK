@@ -1,8 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import json
+import pandas as pd
+import plotly
+import plotly.express as px
 from dataDAO import dataDAO
 
 app = Flask(__name__)
+app.secret_key='dataRepresentation'
 
 @app.route('/')
 def index():
@@ -13,14 +17,66 @@ def index():
 def login():
     error = None
     if request.method == 'POST':
-        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
-            error = 'Invalid Credentials. Please try again.'
+        username = request.form['username']
+        password = request.form['password']
+        # search for user in database
+        dataDAO.login(username, password)
+        if dataDAO.login(username, password) is not None:
+            session['username'] = username
+            return render_template('home.html')
         else:
-            return redirect(url_for('home'))
+            error = 'Invalid Credentials. Please try again.'
     return render_template('login.html', error=error)
     
 
+@app.route('/home')
+def home():
+    if not 'username' in session:
+        return redirect(url_for('login'))
+    return render_template('home.html')
 
+@app.route('/about')
+def about():
+    if not 'username' in session:
+        return redirect(url_for('login'))
+    return render_template('about.html')
+
+@app.route('/employee')
+def employee():
+    if not 'username' in session:
+        return redirect(url_for('login'))
+    return render_template('employee.html')
+
+@app.route('/dash1')
+def dash1():
+    if not 'username' in session:
+        return redirect(url_for('login'))
+    data = dataDAO.readQuits()
+    # convert data read from MySQL to dataframe
+    df = pd.DataFrame(data)
+    # convert date string to date
+    df['date'] = pd.to_datetime(df['date'])     
+    fig = px.scatter(df, x='date', y='num_quit', trendline="rolling",
+                trendline_options=dict(window=5), trendline_color_override="red",
+                width=1000, height=600)
+    fig.update_layout(xaxis_title='Date', yaxis_title='Number of Quits')
+
+    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    header = "Employee Quits by Month With Quarterly Trendline"
+    return render_template('dash1.html', graphJSON=graphJSON, header=header)
+    
+
+@app.route('/dash2')
+def dash2():
+    if not 'username' in session:
+        return redirect(url_for('login'))
+    return render_template('dash2.html')
+
+@app.route('/dash3')
+def dash3():
+    if not 'username' in session:
+        return redirect(url_for('login'))
+    return render_template('dash3.html')
 
 
 
