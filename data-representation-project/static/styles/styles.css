@@ -121,8 +121,7 @@ img {
 
 /* Properties for the footer element used in all pages*/
 footer {
-    background: rgb(0, 0, 85);
-    background-image: url("../images/banner_long.png");
+    background: rgb(0, 0, 0);
     color: white;
     padding: 1em;
     text-align: center;
@@ -257,7 +256,7 @@ h1, h3 {
 /* Defining properties for div elements in content class */
 .content > div {
     display: inline-block;
-    padding: 5%;
+    padding: 3%;
   }
  
 /* Defining properties for imgages in div element of content class */

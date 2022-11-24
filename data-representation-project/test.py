@@ -1,12 +1,10 @@
 from dataDAO import dataDAO
 import pandas as pd
-'''dataDAO.loadMFGEMP()
+dataDAO.loadMFGEMP()
 dataDAO.loadOpenings()
 dataDAO.loadQuits()
 dataDAO.loadUnemployment()
 dataDAO.loadLocalQuits()
-foo = dataDAO.findQuitsByID(1)
-print(foo)'''
 
 #dataDAO.updateQuitsByID(1, '2010-01-01', 6)
 
@@ -36,4 +34,4 @@ print(foo)'''
 #df = pd.DataFrame(data)
 #print(df)
 
-dataDAO.loadLocalQuits()
+#dataDAO.loadLocalQuits()

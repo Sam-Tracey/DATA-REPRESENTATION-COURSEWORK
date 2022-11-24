@@ -143,7 +143,39 @@ def dash3():
     table.update_layout(width=600, height=525)
     table.update_layout(margin=dict(r=5, l=20, t=55, b=2))
     graphJSON1 = json.dumps(table, cls=plotly.utils.PlotlyJSONEncoder)
-    return render_template('dash2.html', graphJSON=graphJSON, header=header, graphJSON1=graphJSON1)
+    return render_template('dash3.html', graphJSON=graphJSON, header=header, graphJSON1=graphJSON1)
+
+@app.route('/dash4')
+def dash4():
+    if not 'username' in session:
+        return redirect(url_for('login'))
+    data = dataDAO.readUnemployment()
+    # convert data read from MySQL to dataframe
+    df = pd.DataFrame(data)
+    # convert date string to date
+    df['date'] = pd.to_datetime(df['date'])     
+    fig = px.scatter(df, x='date', y='unemploymentRate', trendline="rolling",
+                trendline_options=dict(window=5), trendline_color_override="red",
+                width=1000, height=600)
+    fig.update_layout(xaxis_title='Date', yaxis_title='Unemployment Rate %')
+
+    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    header = "South Carolina Unemployment Rate by Month With Quarterly Trendline"
+
+    # Convert date to string to format properly in plotly table (otherwise it includes timestamp)
+    df['date'] = df['date'].dt.strftime('%Y-%m-%d')
+    table = go.Figure(data=[go.Table(
+                header=dict(values=['ID', 'Date', 'Unemployment Rate %'],
+                fill_color='#00008b',
+                align='center', font_size=12, font_color='white'),
+                cells=dict(values=[df.id, df.date, df.unemploymentRate],
+                fill_color='#e5ecf6',
+                align='center', font_size=12))
+            ])
+    table.update_layout(width=600, height=525)
+    table.update_layout(margin=dict(r=5, l=20, t=55, b=2))
+    graphJSON1 = json.dumps(table, cls=plotly.utils.PlotlyJSONEncoder)
+    return render_template('dash4.html', graphJSON=graphJSON, header=header, graphJSON1=graphJSON1)
 
 
 

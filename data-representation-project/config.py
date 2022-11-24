@@ -22,6 +22,6 @@ fred = {
     'unemployment': 'SCUR',
     'MFGEMP': 'SCMFG',
     'Quits': 'JTS00SOQUL',
-    'Openings': 'JTS00SOQUL'
+    'Openings': 'JTS00SOJOL'
 }
 
