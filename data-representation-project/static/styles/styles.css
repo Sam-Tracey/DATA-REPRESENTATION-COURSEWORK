@@ -21,7 +21,7 @@ body {
     /* define max width of sentences*/
     max-width: 60rem;
     /* Create margin between text and edge of page */
-    margin: 0 auto;
+    margin-left: 50px;
 }
 /* menu class used on all pages to define top menu bar properties */
 .menu {
@@ -46,7 +46,7 @@ header::after {
     float: left;
 }
 
-/* nac class used on all pages to Float menu bar to right hand side*/
+/* nav class used on all pages to Float menu bar to right hand side*/
 nav {
     float: right;
 }
@@ -114,7 +114,7 @@ img {
     /* font colour for topBox*/
     color: white;
     /* Specify image location */
-    background-image: url("../images/banner_long.png");
+    background-image: url("../images/banner_long.jpg");
     padding-top: 20px;
     padding-bottom: 20px;
 }
