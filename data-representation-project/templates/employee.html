@@ -53,7 +53,7 @@
             <h2>Employee Data</h2>
             <div> <button id="showCreateButton" onclick="showCreate()">Create</button></div>
             <div>
-                <table class="table" id="bookTable">
+                <table class="table" id="empTable">
                     <tr>
                             <th>id</th>
                             <th>Date</th>
@@ -67,19 +67,14 @@
 
         <!--Container for right hand pane-->
         <div class="sidebar">
-            <h2>D3.js in Observable</h2>
-            <p>One way to overcome the requirement to have a Python web server running in order to see the output from a .csv file in D3.js is to use Obesrvable.
-            </p>
-            <p>Observable's workflow is very similar to a Python Jupyter Notebook in that you can enter your D3.js code in cells and run each cell separately.
-                Observable notebooks can also be "forked" and "starred" in the same way that you might use Github so it has a very familiar feeling to it.
-            </p>
-            <p>One huge advantage of deploying your D3.js code in Observable is that, once you publish it on their website you can then create an iFrame link to your notebook
-                which can be embedded in a standard HTML page! Even if you have used a .csv file (like I have in the example in the left hand pane) you do not need to run
-                a Python web server to view it!
-            </p>
-
-            <p>To view the code used to produce this chart in Observable you can click on the link below:</p><br>
-            <a href="https://observablehq.com/@sam-tracey/web-apps-observable" target="_blank">Sam Tracey - Observable Notebook</a> 
+            <div id='createUpdateForm' style="display: none">
+                <h2><span id="createLabel">Create a</span> <span id="updateLabel">update</span> Quits</h2>
+                <input type="hidden" name="id"/>
+                Date <input type="text" name="date" /><br/>
+                Quits <input type="text" name="quits"/> <br/>
+                <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
+                <span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
+            </div> 
          </div>
  
  
@@ -99,4 +94,218 @@
     </footer>
 
 </body>
+<script>
+    function showCreate(){
+        document.getElementById('showCreateButton').style.display="none"
+        document.getElementById('empTable').style.display="none"
+        document.getElementById('createUpdateForm').style.display="block"
+
+        document.getElementById('createLabel').style.display="inline"
+        document.getElementById('updateLabel').style.display="none"
+
+        document.getElementById('doCreateButton').style.display="block"
+        document.getElementById('doUpdateButton').style.display="none"
+    }
+
+    function showViewAll(){
+        document.getElementById('showCreateButton').style.display="block"
+        document.getElementById('empTable').style.display="block"
+        document.getElementById('createUpdateForm').style.display="none"
+    }
+
+    function showUpdate(buttonElement){
+        document.getElementById('showCreateButton').style.display="none"
+        document.getElementById('empTable').style.display="none"
+        document.getElementById('createUpdateForm').style.display="block"
+
+        document.getElementById('createLabel').style.display="none"
+        document.getElementById('updateLabel').style.display="inline"
+
+        document.getElementById('doCreateButton').style.display="none"
+        document.getElementById('doUpdateButton').style.display="block"
+
+
+        var rowElement = buttonElement.parentNode.parentNode
+        // these is a way of finding the closest <tr> which would safer, closest()
+        
+        var quits = getQuitsFromRow(rowElement)
+        populateFormWithQuits(quits)
+    }
+
+    function doCreate(){
+        var form = document.getElementById('createUpdateForm')
+
+        var quits = {}
+       
+        quits.date = form.querySelector('input[name="date"]').value
+        quits.quits = form.querySelector('input[name="quits"]').value
+        console.log(JSON.stringify(quits))
+        createQuitAjax(quits)
+        
+        
+    }
+
+    function doUpdate(){
+        var quits = getQuitFromForm();
+        var rowElement = document.getElementById(quits.id);
+        updateQuitsAjax(quits);
+        setQuitsInRow(rowElement,quits);
+       
+        clearForm();
+        showViewAll();
+    }
+
+    function doDelete(r){
+        var tableElement = document.getElementById('empTable');
+        var rowElement = r.parentNode.parentNode;
+        var index = rowElement.rowIndex;
+        deleteQuitsAjax(rowElement.getAttribute("id"));
+        tableElement.deleteRow(index);
+    }
+
+    function addQuitsToTable(quits){
+        var tableElement = document.getElementById('empTable')
+        var rowElement = tableElement.insertRow(-1)
+        rowElement.setAttribute('id',quits.id)
+        var cell1 = rowElement.insertCell(0);
+        cell1.innerHTML = quits.id
+        var cell2 = rowElement.insertCell(1);
+        cell2.innerHTML = quits.date
+        var cell3 = rowElement.insertCell(2);
+        cell3.innerHTML = quits.quits
+        var cell4 = rowElement.insertCell(3);
+        cell4.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+        var cell5 = rowElement.insertCell(4);
+        cell5.innerHTML = '<button onclick=doDelete(this)>delete</button>'
+
+    }
+
+    function clearForm(){
+        var form = document.getElementById('createUpdateForm')
+
+        form.querySelector('input[name="date"]').value=''
+        form.querySelector('input[name="quits"]').value=''
+
+    }
+
+    function getQuitsFromRow(rowElement){
+        var quits ={}
+        quits.id  = rowElement.getAttribute('id')
+        quits.date = rowElement.cells[1].firstChild.textContent
+        quits.quits = rowElement.cells[2].firstChild.textContent
+        return quits
+    }
+
+    function setQuitsInRow(rowElement, quits){
+        rowElement.cells[0].firstChild.textContent= quits.id  
+        rowElement.cells[1].firstChild.textContent= quits.date
+        rowElement.cells[2].firstChild.textContent= quits.quits
+
+    }
+
+    function populateFormWithQuits(quits){
+        var form = document.getElementById('createUpdateForm')
+        form.querySelector('input[name="id"]').disabled = true
+
+        form.querySelector('input[name="id"]').value  = quits.id
+        form.querySelector('input[name="date"]').value= quits.date
+        form.querySelector('input[name="quits"]').value= quits.quits
+
+        return quits
+    }
+
+    function getQuitsFromForm(){
+        var form = document.getElementById('createUpdateForm')
+        var quits = {}
+        quits.id = form.querySelector('input[name="id"]').value
+        quits.date = form.querySelector('input[name="date"]').value
+        quits.quits = form.querySelector('input[name="quits"]').value
+        console.log(JSON.stringify(quits))
+        return quits
+    }
+
+    function getAllAjax(){
+        $.ajax({
+            "url": "http://127.0.0.1:5000/employee",
+            "method":"GET",
+            "data":"",
+            "dataType": "JSON",
+            "success":function(result){
+                //console.log(result);
+                for (quits of result){
+                    addQuitsToTable(quits);
+                }
+                
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+
+    }
+
+    function createQuitsAjax(quits){
+        //var car = {"reg":"12 D 1234","make":"Fiat","model":"Punto","price":3000}
+        console.log(JSON.stringify(quits));
+        $.ajax({
+            "url": "http://127.0.0.1:5000/employee",
+            "method":"POST",
+            "data":JSON.stringify(quits),
+            "dataType": "JSON",
+            contentType: "application/json; charset=utf-8",
+            "success":function(result){
+                //console.log(result);
+                quits.id = result.id
+                addQuitsToTable(quits)
+                clearForm()
+                showViewAll()
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+    }
+
+    function updateQuitsAjax(quits){
+        //var car = {"reg":"12 D 1234","price":8000}
+        console.log(JSON.stringify(quits));
+        $.ajax({
+            "url": "http://127.0.0.1:5000/employee/"+encodeURI(quits.id),
+            "method":"PUT",
+            "data":JSON.stringify(quits),
+            "dataType": "JSON",
+            contentType: "application/json; charset=utf-8",
+            "success":function(result){
+               // console.log(result);
+                  
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+    }
+
+    function deleteQuitsAjax(id){
+        
+        //console.log(JSON.stringify('deleting '+id));
+        $.ajax({
+            "url": "http://127.0.0.1:5000/employee/"+encodeURI(id),
+            "method":"DELETE",
+            "data":"",
+            "dataType": "JSON",
+            contentType: "application/json; charset=utf-8",
+            "success":function(result){
+                //console.log(result);
+                  
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+    }
+    getAllAjax();
+  
+
+    
+    </script>
 </html>

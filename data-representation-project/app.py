@@ -6,7 +6,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from dataDAO import dataDAO
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key='dataRepresentation'
 
 @app.route('/')
