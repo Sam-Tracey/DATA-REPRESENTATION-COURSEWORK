@@ -151,6 +151,18 @@ class DataDAO:
             r['date'] = r['date'].strftime("%Y-%m-%d")
         cursor.close()
         return result
+
+    def readSCQuits(self):
+        db = self.getConnection()
+        cursor = db.cursor(dictionary=True)
+        sql="select * from quits"
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        # Convert all datetime.date returned from mysql to string
+        for r in result:
+            r['date'] = r['date'].strftime("%Y-%m-%d")
+        cursor.close()
+        return result
         
 
     # Reads local .csv file containing data on employee quits for the business (local_quits.csv)
