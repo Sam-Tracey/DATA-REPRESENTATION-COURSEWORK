@@ -3,6 +3,7 @@ import json
 import pandas as pd
 import plotly
 import plotly.express as px
+import plotly.graph_objects as go
 from dataDAO import dataDAO
 
 app = Flask(__name__)
@@ -63,7 +64,21 @@ def dash1():
 
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     header = "Employee Quits by Month With Quarterly Trendline"
-    return render_template('dash1.html', graphJSON=graphJSON, header=header)
+
+    # Convert date to string to format properly in plotly table (otherwise it includes timestamp)
+    df['date'] = df['date'].dt.strftime('%Y-%m-%d')
+    table = go.Figure(data=[go.Table(
+                header=dict(values=['ID', 'Date', 'Number of Quits'],
+                fill_color='#00008b',
+                align='center', font_size=12, font_color='white'),
+                cells=dict(values=[df.id, df.date, df.num_quit],
+                fill_color='#e5ecf6',
+                align='center', font_size=12))
+            ])
+    table.update_layout(width=600, height=525)
+    table.update_layout(margin=dict(r=5, l=20, t=55, b=2))
+    graphJSON1 = json.dumps(table, cls=plotly.utils.PlotlyJSONEncoder)
+    return render_template('dash1.html', graphJSON=graphJSON, header=header, graphJSON1=graphJSON1)
     
 
 @app.route('/dash2')
