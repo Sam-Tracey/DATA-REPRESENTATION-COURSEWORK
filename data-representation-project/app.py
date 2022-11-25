@@ -47,15 +47,17 @@ def employee():
     if not 'username' in session:
         return redirect(url_for('login'))
     return render_template('employee.html')
+    
 
-
-@app.route('/employee')
-def getAll():
+@app.route('/get_data')
+def employee_api():
     if not 'username' in session:
         return redirect(url_for('login'))
     results = dataDAO.readQuits()
-
     return jsonify(results)
+    
+
+
 
 @app.route('/employee/<int:id>')
 def findById(id):
@@ -69,9 +71,10 @@ def create():
     if not 'username' in session:
         return redirect(url_for('login'))
     # Expecting form data
+    print(request.json['date'])
     employee = {
-        "date": request.form['date'],
-        "quits": request.form['num_quit']
+        "date": request.json['date'],
+        "num_quit": request.json['num_quit']
     }
     values = (employee['date'], employee['num_quit'])
     newId = dataDAO.createQuitsByID(values)
@@ -89,10 +92,13 @@ def update(id):
         return jsonify({}), 400
     reqJson = request.json
     if 'date' in reqJson:
+        print(reqJson['date'])
         foundEmployee['date'] = reqJson['date']
     if 'num_quit' in reqJson:
+        print(reqJson['num_quit'])
         foundEmployee['num_quit'] = reqJson['num_quit']
     values = (foundEmployee['date'], foundEmployee['num_quit'], foundEmployee['id'])
+    print(values)
     dataDAO.updateQuitsByID(values)
     return jsonify(foundEmployee)
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html lang="en">
 <head>
 <!--Font reference-->
 <link href="https://fonts.googleapis.com/css?family=Work+Sans:300">
@@ -9,8 +9,9 @@
  integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" 
  crossorigin="anonymous" referrerpolicy="no-referrer" />
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Employee Data</title>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -54,12 +55,13 @@
             <div> <button id="showCreateButton" onclick="showCreate()">Create</button></div>
             <div>
                 <table class="table" id="empTable">
-                    <tr>
-                            <th>id</th>
-                            <th>Date</th>
-                            <th>Quits</th>
-                    </tr>
-                    
+                    <thead>
+                        
+                                <th>id</th>
+                                <th>Date</th>
+                                <th>Quits</th>
+                    </thead>   
+    
                 </table>
             </div>
         </div>
@@ -70,8 +72,8 @@
             <div id='createUpdateForm' style="display: none">
                 <h2><span id="createLabel">Create a</span> <span id="updateLabel">update</span> Quits</h2>
                 <input type="hidden" name="id"/>
-                Date <input type="text" name="date" /><br/>
-                Quits <input type="text" name="quits"/> <br/>
+                <label>Date <input type="text" name="date" /></label><br/>
+                <label>Quits <input type="text" name="num_quit"/></label><br/>
                 <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
                 <span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
             </div> 
@@ -138,15 +140,15 @@
         var quits = {}
        
         quits.date = form.querySelector('input[name="date"]').value
-        quits.quits = form.querySelector('input[name="quits"]').value
+        quits.num_quit = form.querySelector('input[name="num_quit"]').value
         console.log(JSON.stringify(quits))
-        createQuitAjax(quits)
+        createQuitsAjax(quits)
         
         
     }
 
     function doUpdate(){
-        var quits = getQuitFromForm();
+        var quits = getQuitsFromForm();
         var rowElement = document.getElementById(quits.id);
         updateQuitsAjax(quits);
         setQuitsInRow(rowElement,quits);
@@ -172,11 +174,11 @@
         var cell2 = rowElement.insertCell(1);
         cell2.innerHTML = quits.date
         var cell3 = rowElement.insertCell(2);
-        cell3.innerHTML = quits.quits
+        cell3.innerHTML = quits.num_quit
         var cell4 = rowElement.insertCell(3);
         cell4.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
         var cell5 = rowElement.insertCell(4);
-        cell5.innerHTML = '<button onclick=doDelete(this)>delete</button>'
+        cell5.innerHTML = '<button onclick=doDelete(this)>Delete</button>'
 
     }
 
@@ -184,7 +186,7 @@
         var form = document.getElementById('createUpdateForm')
 
         form.querySelector('input[name="date"]').value=''
-        form.querySelector('input[name="quits"]').value=''
+        form.querySelector('input[name="num_quit"]').value=''
 
     }
 
@@ -192,14 +194,14 @@
         var quits ={}
         quits.id  = rowElement.getAttribute('id')
         quits.date = rowElement.cells[1].firstChild.textContent
-        quits.quits = rowElement.cells[2].firstChild.textContent
+        quits.num_quit = rowElement.cells[2].firstChild.textContent
         return quits
     }
 
     function setQuitsInRow(rowElement, quits){
         rowElement.cells[0].firstChild.textContent= quits.id  
         rowElement.cells[1].firstChild.textContent= quits.date
-        rowElement.cells[2].firstChild.textContent= quits.quits
+        rowElement.cells[2].firstChild.textContent= quits.num_quit
 
     }
 
@@ -209,7 +211,7 @@
 
         form.querySelector('input[name="id"]').value  = quits.id
         form.querySelector('input[name="date"]').value= quits.date
-        form.querySelector('input[name="quits"]').value= quits.quits
+        form.querySelector('input[name="num_quit"]').value= quits.num_quit
 
         return quits
     }
@@ -219,33 +221,32 @@
         var quits = {}
         quits.id = form.querySelector('input[name="id"]').value
         quits.date = form.querySelector('input[name="date"]').value
-        quits.quits = form.querySelector('input[name="quits"]').value
+        quits.num_quit = form.querySelector('input[name="num_quit"]').value
         console.log(JSON.stringify(quits))
         return quits
     }
 
     function getAllAjax(){
         $.ajax({
-            "url": "http://127.0.0.1:5000/employee",
+            "url": "http://127.0.0.1:5000/get_data",
             "method":"GET",
             "data":"",
             "dataType": "JSON",
             "success":function(result){
-                //console.log(result);
+                console.log(result);
                 for (quits of result){
                     addQuitsToTable(quits);
                 }
                 
             },
             "error":function(xhr,status,error){
-                console.log("error: "+status+" msg:"+error);
+                console.log("crap: "+status+" msg:"+error);
             }
         });
 
     }
 
-    function createQuitsAjax(quits){
-        //var car = {"reg":"12 D 1234","make":"Fiat","model":"Punto","price":3000}
+    function createQuitsAjax(quits, callback){
         console.log(JSON.stringify(quits));
         $.ajax({
             "url": "http://127.0.0.1:5000/employee",
@@ -257,17 +258,18 @@
                 //console.log(result);
                 quits.id = result.id
                 addQuitsToTable(quits)
-                clearForm()
-                showViewAll()
+                location.reload()
+                //clearForm()
+                //showViewAll()
             },
             "error":function(xhr,status,error){
-                console.log("error: "+status+" msg:"+error);
+                console.log("crap: "+status+" msg:"+error);
             }
         });
+        
     }
 
     function updateQuitsAjax(quits){
-        //var car = {"reg":"12 D 1234","price":8000}
         console.log(JSON.stringify(quits));
         $.ajax({
             "url": "http://127.0.0.1:5000/employee/"+encodeURI(quits.id),

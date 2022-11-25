@@ -131,7 +131,7 @@ class DataDAO:
     def readQuits(self):
         db = self.getConnection()
         cursor = db.cursor(dictionary=True)
-        sql="select * from localattritionrate"
+        sql="select * from localattritionrate order by date desc"
         cursor.execute(sql)
         result = cursor.fetchall()
         # Convert all datetime.date returned from mysql to string
@@ -196,21 +196,19 @@ class DataDAO:
         cursor.close()
         return result
 
-    def updateQuitsByID(self, id, date, num_quit):
+    def updateQuitsByID(self, values):
         db = self.getConnection()
         cursor = db.cursor(dictionary=True)
         sql="update localattritionrate set date = %s, num_quit = %s where id = %s"
-        values = [date, num_quit, id]
         cursor.execute(sql, values)
         db.commit()
         cursor.close()
         return
 
-    def createQuitsByID(self, date, num_quit):
+    def createQuitsByID(self, values):
         db = self.getConnection()
         cursor = db.cursor(dictionary=True)
         sql="insert into localattritionrate (date, num_quit) values (%s, %s)"
-        values = [date, num_quit]
         cursor.execute(sql, values)
         db.commit()
         cursor.close()

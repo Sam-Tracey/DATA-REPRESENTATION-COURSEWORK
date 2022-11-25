@@ -248,7 +248,7 @@ h1, h3 {
 
 /*Content class used in home page to centre icons on screen*/
 .content {
-    min-height: 100%;
+    min-height: 25%;
     width: 100%;
     text-align: center;
   }
@@ -262,4 +262,19 @@ h1, h3 {
 /* Defining properties for imgages in div element of content class */
 .content > div  img {
     width: 75px;
+  }
+
+
+.table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 600px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+table, th, td {
+    border: 1px solid;
   }
