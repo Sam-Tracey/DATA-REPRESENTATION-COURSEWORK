@@ -107,9 +107,19 @@ def employee_api():
         return redirect(url_for('login'))
     results = dataDAO.readQuits()
     return jsonify(results)
+
+@app.route('/load_data', methods=['GET'])
+def load_local_data():
+    if not 'username' in session:
+        return redirect(url_for('login'))
+    dataDAO.loadLocalQuits()
+    dataDAO.loadOpenings()
+    dataDAO.loadMFGEMP()
+    dataDAO.loadUnemployment()
+    dataDAO.loadQuits()
+
+    return jsonify({'message': 'Data loaded from local file'})
     
-
-
 
 @app.route('/employee/<int:id>')
 def findById(id):
