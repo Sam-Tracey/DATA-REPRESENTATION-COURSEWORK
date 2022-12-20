@@ -2,40 +2,30 @@
 <html lang="en" dir="ltr">
    <head>
       <meta charset="utf-8">
-      <title>Login Form</title>
+      <title>Forgotten Password</title>
       <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/login_styles.css') }}" >
    </head>
    <body>
       <div class="wrapper">
          <div class="title">
-            Login Form
+            Forgot Password
          </div>
-         <form action="{{ url_for('login') }}" method="POST">
+         <form action="{{ url_for('forgotpass') }}" method="POST">
             <div class="field">
                <input type="text" name="username" required value="{{
                 request.form.username}}">
                <label>Username</label>
             </div>
             <div class="field">
-               <input type="password" name="password" required value="{{
-                request.form.password}}">
-               <label>Password</label>
+               <input type="email" name="email" required value="{{
+                request.form.email}}">
+               <label>Email</label>
             </div>
-            <div class="content">
-               <div class="checkbox">
-                  <input type="checkbox" id="remember-me">
-                  <label for="remember-me">Remember me</label>
-               </div>
-               <div class="pass-link">
-                  <a href="{{ url_for('forgotpass') }}">Forgot password?</a>
-               </div>
-            </div>
+
             <div class="field">
-               <input type="submit" value="Login">
+               <input type="submit" value="Email Password">
             </div>
-            <div class="signup-link">
-               Not a member? <a href="{{ url_for('signup') }}">Signup now</a>
-            </div>
+            
          </form>
         {% if error %}
         <p class="error"><strong>Error:</strong> {{ error }}
@@ -49,4 +39,3 @@
       </div>
    </body>
 </html>
-

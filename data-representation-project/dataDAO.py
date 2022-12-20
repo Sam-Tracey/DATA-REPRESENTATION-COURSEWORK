@@ -276,17 +276,17 @@ class DataDAO:
     def getAllUsers(self):
         db = self.getConnection()
         cursor = db.cursor(dictionary=True)
-        sql="select * from users"
+        sql="select * from user"
         cursor.execute(sql)
         result = cursor.fetchall()
         cursor.close()
         return result
 
-    def findUserByID(self, id):
+    def findUserByEmail(self, email):
         db = self.getConnection()
         cursor = db.cursor(dictionary=True)
-        sql="select * from users where id = %s"
-        values = [id]
+        sql="select * from user where email = %s"
+        values = [email]
         cursor.execute(sql, values)
         result = cursor.fetchone()
         cursor.close()

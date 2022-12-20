@@ -1,4 +1,4 @@
-/* Check to see if the dataRepresentation table exists. If it does, then the database has already been initialized. */
+/* Check to see if the dataRepresentation schema exists. If it does, then the database has already been initialized. */
 CREATE DATABASE  IF NOT EXISTS `datarepresentation`;
 USE `datarepresentation`;
 

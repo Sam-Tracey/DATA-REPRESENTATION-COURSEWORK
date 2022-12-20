@@ -70,10 +70,10 @@
         <!--Container for right hand pane-->
         <div class="sidebar">
             <div id='createUpdateForm' style="display: none">
-                <h2><span id="createLabel">Create a</span> <span id="updateLabel">update</span> Quits</h2>
+                <h2><span id="createLabel">Create</span> <span id="updateLabel">Update</span> Quit Data</h2>
                 <input type="hidden" name="id"/>
-                <label>Date <input type="text" name="date" /></label><br/>
-                <label>Quits <input type="text" name="num_quit"/></label><br/>
+                <label class="aligned-label">Date<input type="text" name="date" /></label><br/>
+                <label class="aligned-label">Quits<input type="text" name="num_quit"/></label><br/>
                 <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
                 <span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
             </div> 
@@ -128,8 +128,7 @@
 
 
         var rowElement = buttonElement.parentNode.parentNode
-        // these is a way of finding the closest <tr> which would safer, closest()
-        
+         
         var quits = getQuitsFromRow(rowElement)
         populateFormWithQuits(quits)
     }

@@ -1,10 +1,28 @@
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify, flash
+from flask_mail import Mail, Message
 import json
 import pandas as pd
 import plotly
 import plotly.express as px
 import plotly.graph_objects as go
 from dataDAO import dataDAO
+
+app = Flask(__name__)
+mail = Mail(app)
+
+'''
+# Email configuration
+# For obvious reasons I am not going to include my email and password here.
+# This would allow the "forgotten password" feature to work.
+
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USERNAME'] = 'your_email@example.com'
+app.config['MAIL_PASSWORD'] = 'your_email_password'
+'''
+
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key='dataRepresentation'
@@ -28,6 +46,40 @@ def login():
         else:
             error = 'Invalid Credentials. Please try again.'
     return render_template('login.html', error=error)
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        # get the form data
+        email = request.form['email']
+        username = request.form['username']
+        password = request.form['password']
+        # insert user into database
+        dataDAO.insertUser(username, password, email)
+        return redirect(url_for('index'))
+    return render_template('signup.html')
+
+@app.route('/forgotpass', methods=['GET', 'POST'])
+def forgotpass():
+    if request.method == 'POST':
+        # get the form data
+        email = request.form['email']
+        # username = request.form['username']
+
+        user = dataDAO.findUserByEmail(email)
+
+        # send the password reset email if the user was found
+        if user:
+            msg = Message('Password Reset', sender='your_email@example.com', recipients=[email])
+            msg.body = 'Your password is: ' + user['password']
+            mail.send(msg)
+        else:
+            # display an error message if the user was not found
+            flash('User not found')
+
+        return redirect(url_for('index'))
+    return render_template('forgotpass.html')
+
     
 
 @app.route('/home')
