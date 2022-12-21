@@ -50,10 +50,11 @@ These data sets are extracted directly from the <a href="https://fred.stlouisfed
 * <code>app.py</code> Python Flask server application program.
 * <code>config.py</code> Python configuration file with credentials for the MySQL database and FRED API.
 * <code>dataDAO.py</code> Python file which enables interaction with the MySQL database.
-* <code>init_db.sql</code>SQL file which allows the datarepresentation schema and relevant MySQL tables to be initilised.
-* <code>local_quits.csv</code>CSV file which contains the syntetic data for local employee attrition</code>
+* <code>init_db.sql</code> SQL file which allows the datarepresentation schema and relevant MySQL tables to be initilised.
+* <code>local_quits.csv</code> CSV file which contains the syntetic data for local employee attrition</code>
 * <code>README.md</code> Readme file.
-* <code>requirements.txt</code>File containing the Python packages required to run the application.
+* <code>requirements.txt</code> File containing the Python packages required to run the application.
 * <code>static</code> Folder containing the images used in the webpages (images folder) and css styles used for the webpages (styles folder).
-* <code>templates</code>Folder containing 10 .html pages used for the web application.
+* <code>templates</code> Folder containing 10 .html pages used for the web application.
+* <code>images</code> Folder containing the images used in this Readme document.
  
