@@ -23,3 +23,26 @@ Write a program that retrieves the dataset for the "exchequer account (historica
 &emsp; &#9702 I don't need you to reformat or analyse the data in any way<br>
 &emsp; &#9702 It should be about 10ish lines long (I have not counted)<br>
 &#8226 You will need to find the dataset in CSO.ie, try economic and then finance.<br></p>
+<br>
+<p style="color: #001a79;"><b>Assignment 4</b><a href="Assignments/assignment04-github.py"> (Link)</a>:<br>
+Write a program in python that will read a file from a repository.<br> 
+The program should then replace all the instances of the text "Andrew" with your name<br>
+The program should then commit those changes and push the file back to the repository.<br>
+I do not need to see your keys<br
+(see lab2, to follow)<br>
+    <b>Handup</b>: Save the program as assignment04-github.py to the same repository you uploaded the xml to
+    <b>Marks</b>: Marks will be given for the functionality and layout of the code; I do expect minimal comments to indicate you know what the program is doing.</p>
+<br>
+
+<hr style="border-top: 1px solid #001a79;" />
+<br>
+<p style="color: #001a79;"><b>Labs</b><br><br>
+    While the labs are not compulsory for the course and are not graded, you can find the code for all labs we worked through in the following folder: <a href="Labs">Labs Folder Link</a></p><br>
+<hr style="border-top: 1px solid #001a79;" />
+<br>
+<p style="color: #001a79;"><b>Code Along</b><br><br>
+    All exercises that were completed during the videos has been saved in this folder <a href = "Code_Along">Code Along Folder Link</a></p>
+<br>
+<hr style="border-top: 1px solid #001a79;" />
+<br>
+<p style="color: #001a79;">You'll also notice that there is a folder for the data-representation-project in this repository. I have split this out into it's own separate repository but kept the original folder here just to show "commits" etc.
